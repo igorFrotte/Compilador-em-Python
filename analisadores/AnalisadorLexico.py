@@ -1,50 +1,51 @@
 import ply.lex as lex
 from utils.Cor import Cor
+from utils.Token import Token
 
 class AnalisadorLexico:
     # Palavras reservadas
     palavras_reservadas = {
-        'program': 'PROGRAM',
-        'const': 'CONST',
-        'type': 'TYPE',
-        'var': 'VAR',
-        'function': 'FUNCTION',
-        'integer': 'INTEGER',
-        'real': 'REAL',
-        'array': 'ARRAY',
-        'of': 'OF',
-        'record': 'RECORD',
-        'begin': 'BEGIN',
-        'end': 'END',
-        'while': 'WHILE',
-        'if': 'IF',
-        'then': 'THEN',
-        'else': 'ELSE',
-        'write': 'WRITE',
-        'read': 'READ',
+        'program': Token.PROGRAM.value,
+        'const': Token.CONST.value,
+        'type': Token.TYPE.value,
+        'var': Token.VAR.value,
+        'function': Token.FUNCTION.value,
+        'integer': Token.INTEGER.value,
+        'real': Token.REAL.value,
+        'array': Token.ARRAY.value,
+        'of': Token.OF.value,
+        'record': Token.RECORD.value,
+        'begin': Token.BEGIN.value,
+        'end': Token.END.value,
+        'while': Token.WHILE.value,
+        'if': Token.IF.value,
+        'then': Token.THEN.value,
+        'else': Token.ELSE.value,
+        'write': Token.WRITE.value,
+        'read': Token.READ.value,
     }
 
     # Lista de tokens
     tokens = [
-        'ID',
-        'NUMERO',
-        'STRING',
-        'ATRIBUICAO',
-        'DOISPONTOS',
-        'PONTOVIRGULA',
-        'VIRGULA',
-        'PONTO',
-        'PARENTESES_ESQ',
-        'PARENTESES_DIR',
-        'COLCHETE_ESQ',
-        'COLCHETE_DIR',
-        'OP_LOGICO',
-        'OP_MAT',
+        Token.ID.value,
+        Token.NUMERO.value,
+        Token.STRING.value,
+        Token.ATRIBUICAO.value, 
+        Token.DOIS_PONTOS.value,
+        Token.PONTO_VIRGULA.value,
+        Token.VIRGULA.value,
+        Token.PONTO.value,
+        Token.PARENTESES_ESQ.value,
+        Token.PARENTESES_DIR.value,
+        Token.COLCHETE_ESQ.value,
+        Token.COLCHETE_DIR.value,
+        Token.OP_LOGICO.value,
+        Token.OP_MAT.value,
     ] + list(palavras_reservadas.values())
 
     # Regras para tokens simples
-    t_PONTOVIRGULA = r';'
-    t_DOISPONTOS = r':'
+    t_PONTO_VIRGULA = r';'
+    t_DOIS_PONTOS = r':'
     t_ATRIBUICAO = r':='
     t_PONTO = r'\.'
     t_VIRGULA = r','

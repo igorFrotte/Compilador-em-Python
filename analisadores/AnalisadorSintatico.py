@@ -1,5 +1,6 @@
 from utils.Cor import Cor
 from utils.No import No
+from utils.Token import Token
 
 class AnalisadorSintatico:
     def __init__(self, listaTokens):
@@ -10,7 +11,8 @@ class AnalisadorSintatico:
     def token_atual(self):
         return self.tokens[self.pos] if self.pos < len(self.tokens) else None
 
-    def consumir(self, esperado):
+    def tratarTerminal(self, recebido):
+        esperado = recebido.value
         token = self.token_atual()
         if token and token[0] == esperado:
             self.pos += 1
@@ -25,9 +27,9 @@ class AnalisadorSintatico:
     def programa(self):
         # [PROGRAMA] ::= (program) [ID] (;) [CORPO]
         filhos = []
-        filhos.append(self.consumir("PROGRAM"))
-        filhos.append(self.consumir("ID"))
-        filhos.append(self.consumir("PONTOVIRGULA"))
+        filhos.append(self.tratarTerminal(Token.PROGRAM))
+        filhos.append(self.tratarTerminal(Token.ID))
+        filhos.append(self.tratarTerminal(Token.PONTO_VIRGULA))
         filhos.append(self.corpo())
         return No("PROGRAMA", filhos)
 
@@ -35,9 +37,9 @@ class AnalisadorSintatico:
         # [CORPO] ::= [DECLARACOES] (begin) [LISTA_COM] (end)
         filhos = []
         filhos.append(self.declaracoes())
-        filhos.append(self.consumir("BEGIN"))
+        filhos.append(self.tratarTerminal(Token.BEGIN))
         #LISTA_COM
-        filhos.append(self.consumir("END"))
+        filhos.append(self.tratarTerminal(Token.END))
         return No("CORPO", filhos)
 
     def declaracoes(self):
