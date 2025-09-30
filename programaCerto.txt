@@ -6,17 +6,16 @@ const
 type
     vetor := array[15] of integer;
     aluno := record
-        nota1, nota2 : real;
-    end;
+                nota1, nota2 : real;
+             end
 
 var
     A, B, C, D : integer;
     E : vetor;
     F : aluno;
 
-function fatorial(a: integer) : integer;
-var 
-    i : integer;
+function fatorial(a: integer) : integer
+var i : integer;
 begin
     i := 1;
     result := 1;
@@ -27,9 +26,8 @@ begin
     end;
 end
 
-function exp(a: real; b: real) : real;
-var 
-    i : integer;
+function exp(a: real; b: real) : real
+var i : integer;
 begin
     i := 1;
     result := a;
@@ -43,7 +41,7 @@ begin
         end;
 end
 
-function lerDados() : aluno;
+function lerDados() : aluno
 begin
     write "digite as notas do aluno";
     read result.nota1;
@@ -54,7 +52,7 @@ $
     de
     linhas
 $
-function maior(a : vetor) : integer;
+function maior(a : vetor) : integer
 var 
     i : integer;
 begin
