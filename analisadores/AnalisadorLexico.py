@@ -1,4 +1,5 @@
 import ply.lex as lex
+from utils.Cor import Cor
 
 class AnalisadorLexico:
     # Palavras reservadas
@@ -82,7 +83,7 @@ class AnalisadorLexico:
 
     # Tratamento de erro
     def t_error(self, t):
-        self.erros.append((t.value, t.lineno))
+        self.erros.append((t.value[0], t.lineno))
         t.lexer.skip(1)
 
     # Construtor
@@ -91,8 +92,6 @@ class AnalisadorLexico:
         self.erros = list()
         self.tokens = list()
         self.gerarTokens(codigo)
-        self.printErros()
-        self.printTokens()
 
     # Função principal
     def gerarTokens(self, codigo):
@@ -106,10 +105,8 @@ class AnalisadorLexico:
     # Funções auxiliares
     def printTokens(self,):
         for token in self.tokens:
-            print(f"{token[0]} {(15-len(token[0]))*' '} linha: {token[2]} {(3-len(str(token[2])))*' '} {token[1]}")
+            print(Cor.pintar(f"{token[0]} {(20-len(token[0]))*' '} Lexema: {token[1]} {(10-len(str(token[1])))*' '} linha: {token[2]}" , Cor.VERDE))
     
     def printErros(self,):
         for token in self.erros:
-            print("\033[1;31;40m"+ 
-                f"Caracter ilegal '{token[0][0]}' na linha {token[1]}" 
-                + "\033[0m")
+            print(Cor.pintar(f"Caracter ilegal '{token[0]}' na linha {token[1]}" , Cor.VERMELHO))
