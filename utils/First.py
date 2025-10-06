@@ -1,0 +1,41 @@
+from utils.Token import Token
+
+class First:
+    PROGRAMA = {Token.PROGRAM.value}
+    CORPO = {Token.CONST.value, Token.TYPE.value, Token.VAR.value, Token.BEGIN.value}
+    DECLARACOES = {Token.CONST.value, Token.TYPE.value, Token.VAR.value, Token.FUNCTION.value}
+    DEF_CONST = {Token.CONST.value}
+    LISTA_CONST = {Token.ID.value}
+    LISTA_CONST_ = {Token.ID.value}
+    CONSTANTE = {Token.ID.value}
+    CONST_VALOR = {Token.STRING.value, Token.ID.value, Token.NUMERO.value}
+    DEF_TIPOS = {Token.TYPE.value}
+    LISTA_TIPOS = {Token.ID.value}
+    LISTA_TIPOS_ = {Token.PONTO_VIRGULA.value}
+    TIPO = {Token.ID.value}
+    TIPO_DADO = {Token.INTEGER.value, Token.REAL.value, Token.ARRAY.value, Token.RECORD.value, Token.ID.value}
+    DEF_VAR = {Token.VAR.value}
+    LISTA_VAR = {Token.ID.value}
+    LISTA_VAR_ = {Token.PONTO_VIRGULA.value}
+    VARIAVEL = {Token.ID.value}
+    LISTA_ID = {Token.ID.value}
+    LISTA_ID_ = {Token.VIRGULA.value}
+    LISTA_FUNC = {Token.FUNCTION.value}
+    FUNCAO = {Token.FUNCTION.value}
+    NOME_FUNCAO = {Token.FUNCTION.value}
+    BLOCO_FUNCAO = {Token.VAR, Token.BEGIN.value}
+    BLOCO = {Token.BEGIN.value, Token.ID.value, Token.WHILE.value, Token.IF.value, Token.WRITE.value, Token.READ.value}
+    LISTA_COM = {Token.ID.value, Token.WHILE.value, Token.IF.value, Token.WRITE.value, Token.READ.value}
+    COMANDO = {Token.ID.value, Token.WHILE.value, Token.IF.value, Token.WRITE.value, Token.READ.value}
+    ELSE = {Token.ELSE.value}
+    VALOR = {Token.ID.value, Token.NUMERO.value}
+    LISTA_PARAM = {Token.PARENTESES_ESQ.value}
+    LISTA_NOME = {Token.ID.value, Token.NUMERO.value}
+    LISTA_NOME_ = {Token.VIRGULA.value}
+    PARAMETRO = {Token.ID.value, Token.NUMERO.value}
+    EXP_LOGICA = {Token.ID.value, Token.NUMERO.value}
+    EXP_LOGICA_ = {Token.OP_LOGICO.value}
+    EXP_MAT = {Token.ID.value, Token.NUMERO.value}
+    EXP_MAT_ = {Token.OP_MAT.value}
+    NOME = {Token.ID.value}
+    NOME_ = {Token.PONTO.value, Token.PARENTESES_ESQ.value}

@@ -1,48 +1,8 @@
 from utils.Cor import Cor
 from utils.No import No
 from utils.Token import Token
-
-FIRST = {
-    "PROGRAMA": {Token.PROGRAM},
-    "CORPO": {Token.CONST.value, Token.TYPE.value, Token.VAR.value, Token.BEGIN.value},
-    "DECLARACOES": {Token.CONST.value, Token.TYPE.value, Token.VAR.value, Token.FUNCTION.value},
-    "DEF_CONST": {Token.CONST.value},
-    "LISTA_CONST": {Token.ID.value},
-    "LISTA_CONST'": {Token.ID.value},
-    "CONSTANTE": {Token.ID.value},
-    "CONST_VALOR": {Token.STRING.value, Token.ID.value, Token.NUMERO.value},
-    "DEF_TIPOS": {Token.TYPE.value},
-    "LISTA_TIPOS": {Token.ID.value},
-    "LISTA_TIPOS'": {Token.PONTO_VIRGULA.value},
-    "TIPO": {Token.ID.value},
-    "TIPO_DADO": {Token.INTEGER.value, Token.REAL.value, Token.ARRAY.value, Token.RECORD.value, Token.ID.value},
-    "DEF_VAR": {Token.VAR.value},
-    "LISTA_VAR": {Token.ID.value},
-    "LISTA_VAR'": {Token.PONTO_VIRGULA.value},
-    "VARIAVEL": {Token.ID.value},
-    "LISTA_ID": {Token.ID.value},
-    "LISTA_ID'": {Token.VIRGULA.value},
-    "LISTA_FUNC": {Token.FUNCTION.value},
-    "FUNCAO": {Token.FUNCTION.value},
-    "NOME_FUNCAO": {Token.FUNCTION.value},
-    "BLOCO_FUNCAO": {Token.VAR, Token.BEGIN.value},
-    "BLOCO": {Token.BEGIN.value, Token.ID.value, Token.WHILE.value, Token.IF.value, Token.WRITE.value, Token.READ.value},
-    "LISTA_COM": {Token.ID.value, Token.WHILE.value, Token.IF.value, Token.WRITE.value, Token.READ.value},
-    "COMANDO": {Token.ID.value, Token.WHILE.value, Token.IF.value, Token.WRITE.value, Token.READ.value},
-    "ELSE": {Token.ELSE.value},
-    "VALOR": {Token.ID.value, Token.NUMERO.value},
-    "LISTA_PARAM": {Token.PARENTESES_ESQ.value},
-    "LISTA_NOME": {Token.ID.value, Token.NUMERO.value},
-    "LISTA_NOME'": {Token.VIRGULA.value},
-    "PARAMETRO": {Token.ID.value, Token.NUMERO.value},
-    "EXP_LOGICA": {Token.ID.value, Token.NUMERO.value},
-    "EXP_LOGICA'": {Token.OP_LOGICO.value},
-    "EXP_MAT": {Token.ID.value, Token.NUMERO.value},
-    "EXP_MAT'": {Token.OP_MAT.value},
-    "NOME": {Token.ID.value},
-    "NOME'": {Token.PONTO.value, Token.PARENTESES_ESQ.value},
-}
-
+from utils.First import First
+from utils.Follow import Follow
 
 class AnalisadorSintatico:
     def __init__(self, listaTokens):
@@ -93,7 +53,7 @@ class AnalisadorSintatico:
     def declaracoes(self):
         # [DECLARACOES] ::= [DEF_CONST] [DEF_TIPOS] [DEF_VAR] [LISTA_FUNC] | ε
         filhos = []
-        if(self.token_atual()[0] in FIRST["DEF_CONST"]):
+        if(self.token_atual()[0] in First.DEF_CONST):
             filhos.append(self.def_const())
             filhos.append(self.def_tipos())
             filhos.append(self.def_var())
@@ -119,7 +79,7 @@ class AnalisadorSintatico:
     def lista_const_(self):
         # [LISTA_CONST’] ::= [LISTA_CONST] | ε
         filhos = []
-        if(self.token_atual()[0] in FIRST["LISTA_CONST"]):
+        if(self.token_atual()[0] in First.LISTA_CONST):
             filhos.append(self.lista_const())
         return No("LISTA_CONST'", filhos)
 
@@ -211,7 +171,7 @@ class AnalisadorSintatico:
     def lista_var(self):
         # [LISTA_VAR] ::= [VARIAVEL] [LISTA_VAR’] ----------------------  PRECISA SER ε TBM
         filhos = []
-        if(self.token_atual()[0] in FIRST["VARIAVEL"]):
+        if(self.token_atual()[0] in First.VARIAVEL):
             filhos.append(self.variavel())
             filhos.append(self.lista_var_())
         return No("LISTA_VAR", filhos)
@@ -252,7 +212,7 @@ class AnalisadorSintatico:
     def lista_func(self):
         # [LISTA_FUNC] ::= [FUNCAO] [LISTA_FUNC] | ε
         filhos = []
-        if(self.token_atual()[0] in FIRST["FUNCAO"]):
+        if(self.token_atual()[0] in First.FUNCAO):
             filhos.append(self.funcao())
             filhos.append(self.lista_func())
         return No("LISTA_FUNC", filhos)
@@ -298,7 +258,7 @@ class AnalisadorSintatico:
     def lista_com(self):
         # [LISTA_COM] ::= [COMANDO] (;) [LISTA_COM] | ε
         filhos = []
-        if(self.token_atual()[0] in FIRST["COMANDO"]):
+        if(self.token_atual()[0] in First.COMANDO):
             filhos.append(self.comando())
             filhos.append(self.consumir(Token.PONTO_VIRGULA))
             filhos.append(self.lista_com())
@@ -355,7 +315,7 @@ class AnalisadorSintatico:
         token = self.token_atual()
         if token and token[0] == Token.ID.value:
             next_token = self.tokens[self.pos + 1]
-            if next_token and next_token[0] in FIRST["LISTA_PARAM"]:
+            if next_token and next_token[0] in First.LISTA_PARAM:
                 filhos.append(self.consumir(Token.ID))
                 filhos.append(self.lista_param())
                 return No("VALOR", filhos)

@@ -1,0 +1,41 @@
+from utils.Token import Token
+
+class Follow:
+    PROGRAMA = {}
+    CORPO = {}
+    DECLARACOES = {Token.BEGIN.value}
+    DEF_CONST = {Token.TYPE.value, Token.VAR.value, Token.FUNCTION.value, Token.BEGIN.value}
+    LISTA_CONST = {Token.TYPE.value, Token.VAR.value, Token.FUNCTION.value, Token.BEGIN.value}
+    LISTA_CONST_ = {Token.TYPE.value, Token.VAR.value, Token.FUNCTION.value, Token.BEGIN.value}
+    CONSTANTE = {Token.ID.value, Token.TYPE.value, Token.VAR.value, Token.FUNCTION.value, Token.BEGIN.value}
+    CONST_VALOR = {Token.PONTO_VIRGULA.value, Token.PARENTESES_DIR.value}
+    DEF_TIPOS = {Token.VAR.value, Token.FUNCTION.value, Token.BEGIN.value}
+    LISTA_TIPOS = {Token.VAR.value, Token.FUNCTION.value, Token.BEGIN.value}
+    LISTA_TIPOS_ = {Token.VAR.value, Token.FUNCTION.value, Token.BEGIN.value}
+    TIPO = {Token.PONTO_VIRGULA.value, Token.VAR.value, Token.FUNCTION.value, Token.BEGIN.value}
+    TIPO_DADO = {Token.PONTO_VIRGULA.value, Token.PARENTESES_DIR.value, Token.OF.value, Token.END.value}
+    DEF_VAR = {Token.FUNCTION.value, Token.BEGIN.value}
+    LISTA_VAR = {Token.END.value, Token.PARENTESES_DIR.value, Token.FUNCTION.value, Token.BEGIN.value}
+    LISTA_VAR_ = {Token.END.value, Token.PARENTESES_DIR.value, Token.FUNCTION.value, Token.BEGIN.value}
+    VARIAVEL = {Token.PONTO_VIRGULA.value, Token.END.value, Token.PARENTESES_DIR.value}
+    LISTA_ID = {Token.DOIS_PONTOS.value}
+    LISTA_ID_ = {Token.DOIS_PONTOS.value}
+    LISTA_FUNC = {Token.BEGIN.value}
+    FUNCAO = {Token.FUNCTION.value, Token.BEGIN.value}
+    NOME_FUNCAO = {Token.VAR.value, Token.BEGIN.value}
+    BLOCO_FUNCAO = {Token.FUNCTION.value, Token.BEGIN.value}
+    BLOCO = {Token.PONTO_VIRGULA.value, Token.END.value, Token.ELSE.value}
+    LISTA_COM = {Token.END.value, Token.ELSE.value}
+    COMANDO = {Token.PONTO_VIRGULA.value, Token.END.value, Token.ELSE.value}
+    ELSE = {Token.PONTO_VIRGULA.value, Token.END.value, Token.ELSE.value}
+    VALOR = {Token.PONTO_VIRGULA.value, Token.END.value, Token.ELSE.value}
+    LISTA_PARAM = {Token.PONTO_VIRGULA.value, Token.END.value, Token.ELSE.value}
+    LISTA_NOME = {Token.PARENTESES_DIR.value}
+    LISTA_NOME_ = {Token.PARENTESES_DIR.value}
+    PARAMETRO = {Token.PARENTESES_DIR.value, Token.VIRGULA.value}
+    EXP_LOGICA = {Token.THEN.value, Token.PONTO_VIRGULA.value, Token.END.value, Token.ELSE.value}
+    EXP_LOGICA_ = {Token.THEN.value, Token.PONTO_VIRGULA.value, Token.END.value, Token.ELSE.value}
+    EXP_MAT = {Token.OP_LOGICO.value, Token.OP_MAT.value, Token.PARENTESES_DIR.value, Token.PONTO_VIRGULA.value, Token.END.value}
+    EXP_MAT_ = {Token.OP_LOGICO.value, Token.PARENTESES_DIR.value, Token.PONTO_VIRGULA.value, Token.END.value}
+    NOME = {Token.OP_MAT.value, Token.OP_LOGICO.value, Token.PARENTESES_DIR.value, Token.PONTO_VIRGULA.value, Token.END.value, Token.ELSE.value, Token.DOIS_PONTOS.value}
+    NOME_ = {Token.OP_MAT.value, Token.OP_LOGICO.value, Token.PARENTESES_DIR.value, Token.PONTO_VIRGULA.value, Token.END.value, Token.ELSE.value, Token.DOIS_PONTOS.value}
