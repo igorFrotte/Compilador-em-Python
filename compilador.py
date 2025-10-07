@@ -10,7 +10,10 @@ Lexo = AnalisadorLexico(code)
 #Lexo.printTokens()
 
 Sintatico = AnalisadorSintatico(Lexo.tokens)
-print(Sintatico.arvoreSintatica)
+#print(Sintatico.arvoreSintatica)
+
+
+
 
 
 
