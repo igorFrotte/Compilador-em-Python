@@ -215,7 +215,7 @@ class AnalisadorSintatico:
         return No("DEF_VAR", filhos)
 
     def lista_var(self):
-        # [LISTA_VAR] ::= [VARIAVEL] [LISTA_VAR’] ----------------------  PRECISA SER ε TBM
+        # [LISTA_VAR] ::= [VARIAVEL] [LISTA_VAR’] | ε                                   loop no ;                                       
         filhos = []
         token = self.token_atual()
         if token and token[0] in First.VARIAVEL:
@@ -301,13 +301,15 @@ class AnalisadorSintatico:
             return self.tratarErro(follow=Follow.NOME_FUNCAO)
 
     def bloco_funcao(self):
-        # [BLOCO_FUNCAO] ::= [DEF_VAR] [BLOCO] -------------------------------------------------- EP
+        # [BLOCO_FUNCAO] ::= [DEF_VAR] [BLOCO]
         filhos = []
         token = self.token_atual()
-        if token and token[0] in First.DEF_VAR:
+        if token and (token[0] in First.DEF_VAR or token[0] in First.BLOCO):
             filhos.append(self.def_var())
             filhos.append(self.bloco())
-        return No("BLOCO_FUNCAO", filhos)
+            return No("BLOCO_FUNCAO", filhos)
+        else:
+            return self.tratarErro(follow=Follow.BLOCO_FUNCAO)
 
     def bloco(self):
         # [BLOCO] ::= (begin) [LISTA_COM] (end) | [COMANDO]
@@ -322,7 +324,7 @@ class AnalisadorSintatico:
             filhos.append(self.comando())
             return No("BLOCO", filhos)
         else:
-            return self.tratarErro(follow=Follow.BLOCO_FUNCAO)
+            return self.tratarErro(follow=Follow.BLOCO)
 
     def lista_com(self):
         # [LISTA_COM] ::= [COMANDO] (;) [LISTA_COM] | ε
@@ -398,7 +400,7 @@ class AnalisadorSintatico:
     def valor_(self):  
         #[VALOR'] ::= [NOME'] [EXP_MAT']
 	    #          | [LISTA_PARAM] 
-        #          | ε                                                                  => result := a;
+        #          | ε                                                                   result := a;
         filhos = []
         token = self.token_atual()
         if token and (token[0] in First.NOME_ or token[0] in First.EXP_MAT_):
@@ -419,15 +421,13 @@ class AnalisadorSintatico:
         return No("LISTA_PARAM", filhos)
 
     def lista_nome(self):
-        # [LISTA_NOME] ::= [PARAMETRO] [LISTA_NOME’]
+        # [LISTA_NOME] ::= [PARAMETRO] [LISTA_NOME’] | ε                                 F := lerDados();
         filhos = []
         token = self.token_atual()
         if token and token[0] in First.PARAMETRO:
             filhos.append(self.parametro())
             filhos.append(self.lista_nome_())
-            return No("LISTA_NOME", filhos)
-        else:
-            return self.tratarErro(follow=Follow.LISTA_NOME)
+        return No("LISTA_NOME", filhos)
 
     def lista_nome_(self):
         # [LISTA_NOME’] ::= (,) [LISTA_NOME] | ε

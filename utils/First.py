@@ -39,4 +39,4 @@ class First:
     EXP_MAT = {Token.ID.value, Token.NUMERO.value}
     EXP_MAT_ = {Token.OP_MAT.value}
     NOME = {Token.ID.value}
-    NOME_ = {Token.PONTO.value, Token.PARENTESES_ESQ.value}
+    NOME_ = {Token.PONTO.value, Token.COLCHETE_ESQ.value}
