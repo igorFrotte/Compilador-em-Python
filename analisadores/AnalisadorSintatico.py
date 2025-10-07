@@ -26,6 +26,13 @@ class AnalisadorSintatico:
     def tratarErro(self, valido="", follow={} ):
         token = self.token_atual()
 
+        if(not token):
+            if(follow):
+                print(Cor.pintar(f"Erro: Token esperado, mas o arquivo terminou inesperadamente", Cor.VERMELHO))
+            else:
+                print(Cor.pintar(f"Erro: esperado {valido}, mas o arquivo terminou inesperadamente", Cor.VERMELHO))
+            return No("ERRO", valor="EOF")
+
         self.pos += 1
         if(follow):
             print(Cor.pintar(f"Erro no {token[1]}, na linha {token[2]}", Cor.VERMELHO))
