@@ -380,23 +380,33 @@ class AnalisadorSintatico:
         return No("ELSE", filhos)
 
     def valor(self):
-        # [VALOR] ::= [EXP_MAT] | [ID] [LISTA_PARAM] =============================================== NT
+        # [VALOR] ::= [NUMERO] [EXP_MAT']
+        #          | [ID] [VALOR']
         filhos = []
         token = self.token_atual()
-        if token and token[0] == Token.ID.value:
-            next_token = self.tokens[self.pos + 1]
-            if next_token and next_token[0] in First.LISTA_PARAM:
-                filhos.append(self.tratarTerminal(Token.ID))
-                filhos.append(self.lista_param())
-                return No("VALOR", filhos)
-            else:
-                filhos.append(self.exp_mat())
-                return No("VALOR", filhos)
-        if token and token[0] == Token.NUMERO.value:   
-            filhos.append(self.exp_mat())
+        if token and token[0] == Token.NUMERO.value:  
+            filhos.append(self.tratarTerminal(Token.NUMERO))
+            filhos.append(self.exp_mat_())
+            return No("VALOR", filhos)
+        elif token and token[0] == Token.ID.value: 
+            filhos.append(self.tratarTerminal(Token.ID)) 
+            filhos.append(self.valor_())
             return No("VALOR", filhos)
         else:
-             return self.tratarErro(follow=Follow.VALOR)
+            return self.tratarErro(follow=Follow.VALOR)
+
+    def valor_(self):  
+        #[VALOR'] ::= [NOME'] [EXP_MAT']
+	    #          | [LISTA_PARAM] 
+        #          | ε                                                                  => result := a;
+        filhos = []
+        token = self.token_atual()
+        if token and (token[0] in First.NOME_ or token[0] in First.EXP_MAT_):
+            filhos.append(self.nome_())
+            filhos.append(self.exp_mat_())
+        elif token and token[0] in First.LISTA_PARAM:
+            filhos.append(self.lista_param())
+        return No("VALOR'", filhos)
 
     def lista_param(self):
         # [LISTA_PARAM] ::= (() [LISTA_NOME] ()) | ε

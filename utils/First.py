@@ -29,6 +29,7 @@ class First:
     COMANDO = {Token.ID.value, Token.WHILE.value, Token.IF.value, Token.WRITE.value, Token.READ.value}
     ELSE = {Token.ELSE.value}
     VALOR = {Token.ID.value, Token.NUMERO.value}
+    VALOR_ = {Token.PARENTESES_ESQ.value,Token.PONTO.value}
     LISTA_PARAM = {Token.PARENTESES_ESQ.value}
     LISTA_NOME = {Token.ID.value, Token.NUMERO.value}
     LISTA_NOME_ = {Token.VIRGULA.value}

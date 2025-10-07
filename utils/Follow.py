@@ -29,6 +29,7 @@ class Follow:
     COMANDO = {Token.PONTO_VIRGULA.value, Token.END.value, Token.ELSE.value}
     ELSE = {Token.PONTO_VIRGULA.value, Token.END.value, Token.ELSE.value}
     VALOR = {Token.PONTO_VIRGULA.value, Token.END.value, Token.ELSE.value}
+    VALOR_ = {Token.PONTO_VIRGULA.value, Token.END.value, Token.ELSE.value}
     LISTA_PARAM = {Token.PONTO_VIRGULA.value, Token.END.value, Token.ELSE.value}
     LISTA_NOME = {Token.PARENTESES_DIR.value}
     LISTA_NOME_ = {Token.PARENTESES_DIR.value}
