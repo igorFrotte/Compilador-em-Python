@@ -1,7 +1,6 @@
 program funcoes;
 
-const 
-    TAM := 10;
+const TAM := 10;
 
 type
     vetor := array[15] of integer;
@@ -53,8 +52,7 @@ $
     linhas
 $
 function maior(a : vetor) : integer
-var 
-    i : integer;
+var i : integer;
 begin
     i := 0;
     result := a[0];
@@ -64,7 +62,9 @@ begin
             result := a[i];
     end;
 end
+
 $ comentario $
+
 begin
     A := TAM;
     B := fatorial(A);

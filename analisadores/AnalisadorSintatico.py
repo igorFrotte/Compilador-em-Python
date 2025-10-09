@@ -408,7 +408,7 @@ class AnalisadorSintatico:
     def valor_(self):  
         #[VALOR'] ::= [NOME'] [EXP_MAT']
 	    #          | [LISTA_PARAM] 
-        #          | ε                                                                   result := a;
+        #          | ε
         filhos = []
         token = self.token_atual()
         if token and (token[0] in First.NOME_ or token[0] in First.EXP_MAT_):
@@ -416,7 +416,7 @@ class AnalisadorSintatico:
             filhos.append(self.exp_mat_())
         elif token and token[0] in First.LISTA_PARAM:
             filhos.append(self.lista_param())
-        return No("VALOR'", filhos)
+        return No("VALOR'", filhos)        
 
     def lista_param(self):
         # [LISTA_PARAM] ::= (() [LISTA_NOME] ())
