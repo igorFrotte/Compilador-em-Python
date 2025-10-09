@@ -306,11 +306,14 @@ class AnalisadorSintatico:
             return self.tratarErro(follow=Follow.NOME_FUNCAO)
 
     def bloco_funcao(self):
-        # [BLOCO_FUNCAO] ::= [DEF_VAR] [BLOCO]
+        # [BLOCO_FUNCAO] ::= [DEF_VAR] [BLOCO] | [BLOCO]
         filhos = []
         token = self.token_atual()
-        if token and (token[0] in First.DEF_VAR or token[0] in First.BLOCO):
+        if token and token[0] in First.DEF_VAR:
             filhos.append(self.def_var())
+            filhos.append(self.bloco())
+            return No("BLOCO_FUNCAO", filhos)
+        if token and token[0] in First.BLOCO:
             filhos.append(self.bloco())
             return No("BLOCO_FUNCAO", filhos)
         else:
@@ -416,17 +419,19 @@ class AnalisadorSintatico:
         return No("VALOR'", filhos)
 
     def lista_param(self):
-        # [LISTA_PARAM] ::= (() [LISTA_NOME] ()) | ε
+        # [LISTA_PARAM] ::= (() [LISTA_NOME] ())
         filhos = []
         token = self.token_atual()
         if token and token[0] == Token.PARENTESES_ESQ.value:
             filhos.append(self.tratarTerminal(Token.PARENTESES_ESQ))
             filhos.append(self.lista_nome())
             filhos.append(self.tratarTerminal(Token.PARENTESES_DIR))
-        return No("LISTA_PARAM", filhos)
+            return No("LISTA_PARAM", filhos)
+        else:
+            return self.tratarErro(follow=Follow.LISTA_PARAM)
 
     def lista_nome(self):
-        # [LISTA_NOME] ::= [PARAMETRO] [LISTA_NOME’] | ε                                 F := lerDados();
+        # [LISTA_NOME] ::= [PARAMETRO] [LISTA_NOME’] | ε                             
         filhos = []
         token = self.token_atual()
         if token and token[0] in First.PARAMETRO:
