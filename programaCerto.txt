@@ -7,7 +7,7 @@ type
     vetor := array[15] of integer;
     aluno := record
                 nota1, nota2 : real;
-             end
+             end;
 
 var
     A, B, C, D : integer;

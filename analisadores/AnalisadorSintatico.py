@@ -152,15 +152,13 @@ class AnalisadorSintatico:
         return No("DEF_TIPOS", filhos) 
 
     def lista_tipos(self):
-        # [LISTA_TIPOS] ::= [TIPO] [LISTA_TIPOS’]
+        # [LISTA_TIPOS] ::= [TIPO] [LISTA_TIPOS’] | ε                                       ; do record
         filhos = []
         token = self.token_atual()
         if token and token[0] in First.TIPO:
             filhos.append(self.tipo())
             filhos.append(self.lista_tipos_())
-            return No("LISTA_TIPOS", filhos)
-        else:
-            return self.tratarErro(follow=Follow.LISTA_TIPOS) 
+        return No("LISTA_TIPOS", filhos) 
 
     def lista_tipos_(self):
         # [LISTA_TIPOS’] ::= (;) [LISTA_TIPOS] | ε
